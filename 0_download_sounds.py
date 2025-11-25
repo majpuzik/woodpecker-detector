@@ -19,17 +19,23 @@ def download_sound(query, category, limit=5):
     folder = os.path.join(SOUNDS_DIR, category)
     os.makedirs(folder, exist_ok=True)
 
-    api_url = f"https://xeno-canto.org/api/2/recordings?query={query}"
+    # URL encode query
+    import urllib.parse
+    encoded_query = urllib.parse.quote(query)
+    api_url = f"https://xeno-canto.org/api/2/recordings?query={encoded_query}"
 
     try:
-        response = requests.get(api_url, timeout=10)
+        print(f"📡 API: {api_url[:80]}...")
+        response = requests.get(api_url, timeout=15)
         data = response.json()
     except Exception as e:
         print(f"❌ Chyba: {e}")
         return
 
     recordings = data.get('recordings', [])
-    print(f"✅ Nalezeno: {len(recordings)} nahrávek")
+    num_total = data.get('numRecordings', 0)
+    print(f"✅ Nalezeno: {num_total} nahrávek celkem")
+    print(f"📥 Stahují se první: {min(limit, len(recordings))} vzorků")
 
     count = 0
     for rec in recordings[:limit]:
@@ -66,37 +72,32 @@ def main():
     ╚══════════════════════════════════════════════════════════╝
     """)
 
-    # 1. Zvuky datlů (bubnování)
+    # Simplified queries (bez type: filtru)
+
+    # 1. Zvuky datlů
     download_sound(
-        "gen:Dendrocopos type:drumming q:A",
+        "dendrocopos",
         "woodpecker_drumming",
         limit=10
     )
 
-    # 2. Volání datlů
+    # 2. Predátoři - Jestřáb
     download_sound(
-        "gen:Dendrocopos type:call q:A",
-        "woodpecker_calls",
-        limit=10
-    )
-
-    # 3. Predátoři - Jestřáb lesní (Accipiter gentilis)
-    download_sound(
-        "Accipiter gentilis type:call q:A",
+        "accipiter gentilis",
         "predator_hawk",
         limit=10
     )
 
-    # 4. Predátoři - Výr velký (Bubo bubo)
+    # 3. Predátoři - Výr
     download_sound(
-        "Bubo bubo type:call q:A",
+        "bubo bubo",
         "predator_owl",
         limit=10
     )
 
-    # 5. Predátoři - Káně lesní (Buteo buteo)
+    # 4. Predátoři - Káně
     download_sound(
-        "Buteo buteo type:call q:A",
+        "buteo buteo",
         "predator_buzzard",
         limit=10
     )

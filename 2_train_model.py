@@ -68,7 +68,7 @@ def load_dataset():
             print(f"⚠️  Složka {dir_path} neexistuje!")
             continue
 
-        files = [f for f in os.listdir(dir_path) if f.endswith('.mp3')]
+        files = [f for f in os.listdir(dir_path) if f.endswith(('.mp3', '.wav'))]
         print(f"\n{'='*60}")
         print(f"🏷️  Třída: {label_name.upper()} (Label: {label_idx})")
         print(f"📁 Souborů: {len(files)}")

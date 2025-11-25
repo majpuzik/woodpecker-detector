@@ -18,4 +18,4 @@ echo "🚀 Spouštím server..."
 echo ""
 
 # Spuštění serveru
-python3 3_main_app.py
+./venv/bin/python3 3_main_app.py

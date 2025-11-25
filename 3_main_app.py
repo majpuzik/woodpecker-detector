@@ -12,6 +12,7 @@ import json
 from datetime import datetime
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import logging
 
 # Logging
@@ -37,6 +38,9 @@ except Exception as e:
 
 app = FastAPI(title="Woodpecker Detector API")
 
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # --- HTML GUI PRO ANDROID ---
 HTML_INTERFACE = """
 <!DOCTYPE html>
@@ -45,6 +49,11 @@ HTML_INTERFACE = """
     <title>Woodpecker Pro Detector</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <meta charset="utf-8">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#ffa726">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Woodpecker">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {

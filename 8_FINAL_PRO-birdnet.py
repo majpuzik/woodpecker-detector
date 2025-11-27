@@ -129,12 +129,13 @@ def analyze_with_birdnet(audio_float32, sr=SAMPLE_RATE):
 
                     logger.info(f"   - {common_name}: {confidence*100:.1f}%")
 
-                    # Check if it's a woodpecker
-                    for woodpecker in WOODPECKER_SPECIES:
-                        if woodpecker.lower() in common_name.lower():
-                            if confidence > best_confidence:
-                                best_confidence = confidence
-                                best_woodpecker = common_name
+                    # Check if it's ANY woodpecker (European or American)
+                    # Keywords: woodpecker, sapsucker (woodpecker family), wryneck
+                    woodpecker_keywords = ['woodpecker', 'sapsucker', 'wryneck', 'dendrocopos', 'picoides']
+                    if any(keyword in common_name.lower() for keyword in woodpecker_keywords):
+                        if confidence > best_confidence:
+                            best_confidence = confidence
+                            best_woodpecker = common_name
 
             # Cleanup temp file
             os.unlink(tmp_path)

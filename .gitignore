@@ -1,45 +1,31 @@
 # Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
 venv/
-env/
-ENV/
-
-# Datasets and Models
-dataset/
-*.mp3
-*.wav
-*.keras
-*.h5
-*.pb
-model_metadata.json
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
 
 # Logs
 logs/
 *.log
+
+# SSL Certificates
+ssl/
+
+# Dataset (large audio files)
+dataset/
+
+# Environment variables
+.env
+*.env
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS
+# macOS
 .DS_Store
-Thumbs.db
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Testing
-.pytest_cache/
-htmlcov/
-.coverage
-
-# Temporary
-*.tmp
-*.bak

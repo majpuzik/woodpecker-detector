@@ -1,0 +1,17 @@
+{
+  "created": "2025-11-25T19:38:02.186187",
+  "sample_rate": 22050,
+  "duration": 1.0,
+  "n_mels": 64,
+  "input_shape": [
+    64,
+    44,
+    1
+  ],
+  "training_samples": 48,
+  "test_samples": 12,
+  "test_accuracy": 1.0,
+  "test_precision": 1.0,
+  "test_recall": 1.0,
+  "epochs_trained": 25
+}

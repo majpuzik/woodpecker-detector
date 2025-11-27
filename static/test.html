@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>WebSocket Test</title></head>
+<body>
+<h1>WebSocket HTTPS Test</h1>
+<div id="log"></div>
+<script>
+const log = document.getElementById('log');
+function addLog(msg) {
+    log.innerHTML += msg + '<br>';
+    console.log(msg);
+}
+
+const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const wsUrl = wsProtocol + '//' + window.location.host + '/ws';
+addLog('Connecting to: ' + wsUrl);
+
+const ws = new WebSocket(wsUrl);
+
+ws.onopen = () => {
+    addLog('✅ WebSocket OPEN');
+    ws.send(JSON.stringify({type: 'ping'}));
+    addLog('📤 Ping sent');
+};
+
+ws.onmessage = (event) => {
+    addLog('📨 Message: ' + event.data);
+};
+
+ws.onerror = (error) => {
+    addLog('❌ Error: ' + JSON.stringify(error));
+};
+
+ws.onclose = (event) => {
+    addLog('❌ CLOSED - Code: ' + event.code + ', Reason: ' + event.reason);
+};
+</script>
+</body>
+</html>
